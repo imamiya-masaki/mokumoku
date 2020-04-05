@@ -1,6 +1,7 @@
 <template>
   <div class="top">
-    <left-bar :drawer="showLeft" @show="getChangedShow"/>
+    <left-bar :drawer="showLeft" @show="getChangedLeft"/>
+    <right-bar :drawer="showRight" @show="getChangedRight"/>
     <v-card
     color="grey lighten-4"
     flat
@@ -25,6 +26,7 @@
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
+      <v-app-bar-nav-icon @click.stop="onShowRight()"></v-app-bar-nav-icon>
     </v-toolbar>
   </v-card>
   </div>
@@ -32,17 +34,20 @@
 
 <script>
 import LeftBar from '@/components/navigate/LeftBar.vue'
+import RightBar from '@/components/navigate/RightBar.vue'
 export default {
   name: 'topBar',
   props: {
     msg: String
   },
   components: {
-    LeftBar
+    LeftBar,
+    RightBar
   },
   data () {
     return {
-      showLeft: false
+      showLeft: false,
+      showRight: false
     }
   },
   methods: {
@@ -50,8 +55,15 @@ export default {
       this.showLeft = !this.showLeft
       console.log('this.$refs', this.showLeft)
     },
-    getChangedShow: function (show) {
+    onShowRight: function () {
+      this.showRight = !this.showRight
+      console.log('this.$refs', this.showRight)
+    },
+    getChangedLeft: function (show) {
       this.showLeft = show
+    },
+    getChangedRight: function (show) {
+      this.showRight = show
     }
   }
 }
