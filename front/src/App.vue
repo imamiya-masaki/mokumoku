@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TopVar/>
+    <top-var/>
   </div>
 </template>
 

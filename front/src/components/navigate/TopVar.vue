@@ -1,5 +1,6 @@
 <template>
-  <div class="hello">
+  <div class="top">
+    <left-bar :drawer="showLeft" @show="getChangedShow"/>
     <v-card
     color="grey lighten-4"
     flat
@@ -7,7 +8,7 @@
     tile
   >
     <v-toolbar dense>
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="onShowLeft()"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Title</v-toolbar-title>
 
@@ -30,10 +31,28 @@
 </template>
 
 <script>
+import LeftBar from '@/components/navigate/LeftBar.vue'
 export default {
   name: 'topBar',
   props: {
     msg: String
+  },
+  components: {
+    LeftBar
+  },
+  data () {
+    return {
+      showLeft: false
+    }
+  },
+  methods: {
+    onShowLeft: function () {
+      this.showLeft = !this.showLeft
+      console.log('this.$refs', this.showLeft)
+    },
+    getChangedShow: function (show) {
+      this.showLeft = show
+    }
   }
 }
 </script>
