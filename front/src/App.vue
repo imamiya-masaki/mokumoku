@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <top-var/>
+    <router-view/>
   </div>
 </template>
 
