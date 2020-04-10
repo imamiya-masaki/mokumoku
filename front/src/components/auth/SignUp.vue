@@ -21,7 +21,7 @@ export default {
   methods: {
     SendCreateEmail: function () {
       const actionCodeSettings = {
-        url: 'http://localhost:8888/finishSignUp?cartId=1234',
+        url: 'http://localhost:8888/auth',
         handleCodeInApp: true
       }
       const email = this.email
@@ -32,12 +32,16 @@ export default {
         // Save the email locally so you don't need to ask the user for it again
         // if they open the link on the same device.
           window.localStorage.setItem('emailForSignIn', email)
+          console.log('success!')
         })
         .catch(function (error) {
         // Some error occurred, you can inspect the code: error.code
           console.log('err', error)
         })
     }
+  },
+  mounted: function () {
+    console.log('SignUp!')
   }
 }
 </script>
