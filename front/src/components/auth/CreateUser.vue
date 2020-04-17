@@ -1,6 +1,6 @@
 <template>
   <div class="signup">
-    <h2>sign up</h2>
+    <h2>Create sign up</h2>
     <input type="text" placeholder="email" v-model="email" disabled>
     <input tyle="text" placeholder="password" v-model="passWord">
     <button>Register</button>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+// import firebase from 'firebase'
 export default {
   name: 'SignUp',
   props: {

@@ -30,6 +30,7 @@ export default {
   // },
   mounted: function () {
     console.log('auth...', this.isEmailLink, this.email)
+    const self = this
     if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
       let email = window.localStorage.getItem('emailForSignIn')
       if (!email) {
@@ -39,12 +40,13 @@ export default {
       firebase.auth().signInWithEmailLink(email, window.location.href)
         .then(function (result) {
           window.localStorage.removeItem('emailForSignIn')
-          console.log('user', result)
-          this.isEmailLink = true
-          this.email = email
+          console.log('user', result, self.isEmailLink)
+          self.isEmailLink = true
+          self.email = email
+          console.log('self', self.email)
         })
         .catch(function (err) {
-          console.log('err', err)
+          console.log('err', err, self.isEmailLink)
         })
     }
   }
