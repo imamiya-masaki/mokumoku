@@ -1,44 +1,48 @@
 <template>
-    <v-navigation-drawer
-      v-model="isShow"
-      absolute
-      temporary
-    >
-      <v-list-item>
-        <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title>John Leider</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
-      <v-list dense>
-
-        <v-list-item
-          v-for="item in getItem"
-          :key="item.title"
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
+    <div class="leftBar">
+      <v-navigation-drawer
+        v-model="isShow"
+        absolute
+        temporary
+      >
+        <v-list-item>
+          <!-- <v-list-item-avatar>
+            <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+          </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
+            <v-list-item-title>John Leider</v-list-item-title>
+          </v-list-item-content> -->
+          <side-var-profile/>
         </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+
+        <v-divider></v-divider>
+
+        <v-list dense>
+
+          <v-list-item
+            v-for="item in getItem"
+            :key="item.title"
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+  </div>
 </template>
 <script>
 // @ is an alias to /src
-
+import SideVarProfile from '@/components/navigate/SideVarProfile'
 export default {
   name: 'LeftBar',
   components: {
+    SideVarProfile
   },
   data () {
     return {
@@ -61,6 +65,12 @@ export default {
   computed: {
     getItem: function () {
       return this.item
+    },
+    username  () {
+      return this.$store.getters.email
+    },
+    userStatus () {
+      return this.$store.getters.isSignedIn
     },
     getRefs () {
       console.log('this.$refs.showLeft', this.$refs)
