@@ -4,7 +4,9 @@
     <p>Sign out</p>
   </div>
   <div v-else>
-    <p>Sign in ?</p>
+    <router-link to="/auth">
+      <p>Sign in ?</p>
+    </router-link>
   </div>
 </template>
 
