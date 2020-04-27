@@ -1,8 +1,52 @@
 <template>
   <div class="signup">
     <h2>sign up</h2>
-    <input type="text" placeholder="email" v-model="email">
-    <button @click="SendCreateEmail()">Register</button>
+    <v-form v-model="valid">
+    <v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="name"
+            :counter="10"
+            label="名前を入力してください"
+            required
+          ></v-text-field>
+        </v-col>
+
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="Email"
+            required
+          ></v-text-field>
+        </v-col>
+
+        <v-col
+          cols="12"
+          md="4"
+        >
+          <v-text-field
+            v-model="passWord"
+            :rules="passwordRules"
+            label="password"
+            required
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
+  <v-app>
+    <div class="my-2 text-center">
+      <v-btn small color="primary">Primary</v-btn>
+    </div>
+  </v-app>
   </div>
 </template>
 
@@ -15,7 +59,18 @@ export default {
   },
   data () {
     return {
-      email: ''
+      valid: false,
+      name: '',
+      email: '',
+      passord: '',
+      passwordRules: [
+        v => !!v,
+        v => v.length > 8
+      ],
+      emailRules: [
+        v => !!v,
+        v => /.+@.+/.test(v)
+      ]
     }
   },
   methods: {
@@ -61,5 +116,8 @@ li {
 }
 a {
   color: #42b983;
+}
+center {
+  text-align: center;
 }
 </style>

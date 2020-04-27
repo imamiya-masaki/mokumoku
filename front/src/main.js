@@ -2,10 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Vuetify from 'vuetify'
-import vuetify from './plugins/vuetify'
+import vuetify from '@/plugins/vuetify'
+import 'vuetify/dist/vuetify.min.css'
 import firebase from 'firebase'
-Vue.use(Vuetify)
+import colors from 'vuetify/lib/util/colors'
 Vue.config.productionTip = false
 const firebaseConfig = {
   apiKey: 'AIzaSyBe_BBIDtz_htiDDEpIEQuae_TrB5uLsKk',
@@ -23,5 +23,6 @@ new Vue({
   router,
   store,
   vuetify,
+  primary: colors.red.darken1,
   render: h => h(App)
 }).$mount('#app')
