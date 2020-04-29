@@ -4,13 +4,14 @@
     <right-bar :drawer="showRight" @show="getChangedRight"/>
     <v-card
     color="grey lighten-4"
-    flat
+    :flat="true"
     tile
+    class="border"
   >
-    <v-toolbar dense>
+    <v-toolbar flat dense>
       <v-app-bar-nav-icon @click.stop="onShowLeft()"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Title</v-toolbar-title>
+      <v-toolbar-title>MokuMoku</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -25,7 +26,7 @@
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
-      <v-app-bar-nav-icon @click.stop="onShowRight()"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon v-if="userVisibleMode" @click.stop="onShowRight()"></v-app-bar-nav-icon>
     </v-toolbar>
   </v-card>
   </div>
@@ -50,7 +51,8 @@ export default {
   data () {
     return {
       showLeft: false,
-      showRight: false
+      showRight: false,
+      userVisibleMode: false
     }
   },
   methods: {
@@ -98,5 +100,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.border {
+   border-bottom: solid 1.5px black;
 }
 </style>

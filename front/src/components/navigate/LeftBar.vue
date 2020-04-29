@@ -5,6 +5,10 @@
         absolute
         temporary
         app
+        hide-overlay
+        :light="true"
+        :clipped="true"
+        style="box-shadow:none"
       >
         <v-list-item>
           <!-- <v-list-item-avatar>
