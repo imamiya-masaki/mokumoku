@@ -26,23 +26,27 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async createUser (userInfo) {
+    async createUser ({ commit }, userInfo) {
       const auth = firebase.auth()
       let info = {}
       // 一応べつで対応
+      info.displayName = userInfo.name
       info.email = userInfo.email
       info.password = userInfo.password
       if (info.hasOwnProperty('photoURL')) {
         info.photoURL = userInfo.photoURL
       }
-      auth.createUser(info)
+      console.log('auth', userInfo)
+      auth.createUserWithEmailAndPassword(info.email, info.password)
         .then(function (userRecord) {
           console.log('Succsess', userRecord)
           // メール確認を送る
-          userRecord.sendEmailVerification()
+          userRecord.user.sendEmailVerification()
+          return 'success'
         })
         .catch(function (error) {
           console.log('err', error)
+          return 'err'
         })
     }
   },

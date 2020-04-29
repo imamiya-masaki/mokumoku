@@ -33,7 +33,7 @@
           md="4"
         >
           <v-text-field
-            v-model="passWord"
+            v-model="password"
             :rules="passwordRules"
             label="password"
             required
@@ -44,7 +44,7 @@
   </v-form>
   <v-app>
     <div class="my-2 text-center">
-      <v-btn small color="primary">Primary</v-btn>
+      <v-btn small color="primary" @click="sendCreateUser()">sign up for mokumoku</v-btn>
     </div>
   </v-app>
   </div>
@@ -52,6 +52,7 @@
 
 <script>
 import firebase from 'firebase'
+import { mapActions } from 'vuex'
 export default {
   name: 'SignUp',
   props: {
@@ -62,7 +63,7 @@ export default {
       valid: false,
       name: '',
       email: '',
-      passord: '',
+      password: '',
       passwordRules: [
         v => !!v,
         v => v.length > 8
@@ -74,6 +75,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      // action
+      'createUser'
+    ]),
     SendCreateEmail: function () {
       const actionCodeSettings = {
         url: 'http://localhost:8888/auth',
@@ -93,6 +98,15 @@ export default {
         // Some error occurred, you can inspect the code: error.code
           console.log('err', error)
         })
+    },
+    sendCreateUser: function () {
+      let user = {}
+      user.email = this.email
+      user.name = this.name
+      user.password = this.password
+      this.createUser(user).then(function (output) {
+        console.log('output', output)
+      })
     }
   },
   mounted: function () {
