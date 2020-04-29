@@ -5,7 +5,6 @@
     <v-card
     color="grey lighten-4"
     flat
-    height="200px"
     tile
   >
     <v-toolbar dense>
@@ -38,7 +37,11 @@ import RightBar from '@/components/navigate/RightBar.vue'
 export default {
   name: 'topBar',
   props: {
-    msg: String
+    msg: String,
+    clickParent: {
+      type: Boolean,
+      default: false
+    }
   },
   components: {
     LeftBar,
@@ -60,10 +63,21 @@ export default {
       console.log('this.$refs', this.showRight)
     },
     getChangedLeft: function (show) {
+      console.log('show', show)
       this.showLeft = show
     },
     getChangedRight: function (show) {
       this.showRight = show
+    }
+  },
+  watch: {
+    clickParent () {
+      console.log('clickParent')
+      if (this.clickParent) {
+        this.showLeft = false
+        this.showRight = false
+        this.$emit('propagated')
+      }
     }
   }
 }

@@ -1,7 +1,9 @@
 <template>
-  <div id="app">
-    <top-var/>
+  <div id="app" @click.self="onClickRouterView()">
+    <v-app>
+    <top-var :clickParent="isClickRouterView" @propagated="isPropagated()"/>
     <router-view/>
+  </v-app>
   </div>
 </template>
 
@@ -14,9 +16,18 @@ export default {
   components: {
     TopVar
   },
-
-  data: () => ({
-    //
-  })
+  data () {
+    return {
+      isClickRouterView: false
+    }
+  },
+  method: {
+    isPropagated: function () {
+      this.isClickRouterView = false
+    },
+    onClickRouterView: function () {
+      this.isClickRouterView = true
+    }
+  }
 }
 </script>

@@ -42,11 +42,9 @@
       </v-row>
     </v-container>
   </v-form>
-  <v-app>
-    <div class="my-2 text-center">
-      <v-btn small color="primary" @click="sendCreateUser()">sign up for mokumoku</v-btn>
-    </div>
-  </v-app>
+  <div class="my-2 text-center">
+    <v-btn small color="primary" @click="sendCreateUser()">sign up for mokumoku</v-btn>
+  </div>
   </div>
 </template>
 

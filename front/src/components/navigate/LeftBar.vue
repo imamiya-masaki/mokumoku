@@ -4,6 +4,7 @@
         v-model="isShow"
         absolute
         temporary
+        app
       >
         <v-list-item>
           <!-- <v-list-item-avatar>
@@ -50,7 +51,8 @@ export default {
         { title: 'Home', icon: 'dashboard' },
         { title: 'Test', icon: 'dashboard' }
       ],
-      isShow: false
+      isShow: false,
+      enShow: false
     }
   },
   props: {
@@ -84,6 +86,7 @@ export default {
       this.isShow = this.drawer
     },
     isShow () {
+      console.log('isShow', this.isShow)
       this.$emit('show', this.isShow)
     }
   }
