@@ -1,7 +1,7 @@
 <template>
   <div id="app" @click.self="onClickRouterView()">
     <v-app>
-    <top-var :clickParent="isClickRouterView" @propagated="isPropagated()"/>
+    <top-var :clickParent="isClickRouterView" @propagated="isPropagated()" v-if="!nodeTopURL"/>
     <router-view/>
   </v-app>
   </div>
@@ -18,7 +18,18 @@ export default {
   },
   data () {
     return {
-      isClickRouterView: false
+      isClickRouterView: false,
+      nonvisial: false
+    }
+  },
+  computed: {
+    nodeTopURL () {
+      const path = this.$route.path
+      console.log('path', path)
+      if (path === '/auth') {
+        return true
+      }
+      return false
     }
   },
   method: {

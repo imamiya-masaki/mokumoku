@@ -1,45 +1,27 @@
 <template>
   <div class="signup">
-    <h2>sign up</h2>
-    <v-form v-model="valid">
+    <v-form v-model="valid"
+    lazy-validation
+    class="mx-auto">
     <v-container>
-      <v-row>
-        <v-col
-          cols="12"
-          md="4"
-        >
           <v-text-field
             v-model="name"
             :counter="10"
-            label="名前を入力してください"
+            label="user name"
             required
           ></v-text-field>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
           <v-text-field
             v-model="email"
             :rules="emailRules"
             label="Email"
             required
           ></v-text-field>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="4"
-        >
           <v-text-field
             v-model="password"
             :rules="passwordRules"
             label="password"
             required
           ></v-text-field>
-        </v-col>
-      </v-row>
     </v-container>
   </v-form>
   <div class="my-2 text-center">
@@ -49,7 +31,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+//  import firebase from 'firebase'
 import { mapActions } from 'vuex'
 export default {
   name: 'SignUp',
@@ -77,26 +59,6 @@ export default {
       // action
       'createUser'
     ]),
-    SendCreateEmail: function () {
-      const actionCodeSettings = {
-        url: 'http://localhost:8888/auth',
-        handleCodeInApp: true
-      }
-      const email = this.email
-      console.log('email', email)
-      firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
-        .then(function () {
-        // The link was successfully sent. Inform the user.
-        // Save the email locally so you don't need to ask the user for it again
-        // if they open the link on the same device.
-          window.localStorage.setItem('emailForSignIn', email)
-          console.log('success!')
-        })
-        .catch(function (error) {
-        // Some error occurred, you can inspect the code: error.code
-          console.log('err', error)
-        })
-    },
     sendCreateUser: function () {
       let user = {}
       user.email = this.email

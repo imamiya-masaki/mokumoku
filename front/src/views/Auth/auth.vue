@@ -1,7 +1,8 @@
 <template>
   <div class="auth">
+    <p class="title-name">Mokumoku</p>
     <div v-if="!isEmailLink">
-      <sign-up/>
+      <sign-component/>
     </div>
     <div v-else>
       <create-user :email="email"/>
@@ -11,13 +12,13 @@
 
 <script>
 // @ is an alias to /src
-import SignUp from '@/components/auth/SignUp.vue'
+import SignComponent from '@/components/auth/SignComponent.vue'
 import CreateUser from '@/components/auth/CreateUser.vue'
 import firebase from 'firebase'
 export default {
   name: 'Auth',
   components: {
-    SignUp,
+    SignComponent,
     CreateUser
   },
   data () {
@@ -52,3 +53,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.title-name {
+  text-align: center;
+}
+</style>

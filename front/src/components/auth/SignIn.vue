@@ -1,9 +1,26 @@
 <template>
   <div class="signin">
-    <h2>sign up</h2>
-    <input type="text" placeholder="Username" v-model="username">
-    <input type="password" placeholder="Password" v-model="password">
-    <button>Register</button>
+    <v-form v-model="valid"
+    lazy-validation
+    class="mx-auto">
+    <v-container>
+          <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="Email"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="password"
+            :rules="passwordRules"
+            label="password"
+            required
+          ></v-text-field>
+    </v-container>
+  </v-form>
+  <div class="my-2 text-center">
+    <v-btn small color="primary" @click="sendCreateUser()">sign up for mokumoku</v-btn>
+  </div>
   </div>
 </template>
 
@@ -15,8 +32,18 @@ export default {
   },
   data () {
     return {
-      userName: '',
-      passWord: ''
+      valid: false,
+      name: '',
+      email: '',
+      password: '',
+      passwordRules: [
+        v => !!v,
+        v => v.length > 8
+      ],
+      emailRules: [
+        v => !!v,
+        v => /.+@.+/.test(v)
+      ]
     }
   },
   methods: {
