@@ -6,7 +6,7 @@
     <v-container>
           <v-text-field
             v-model="name"
-            :counter="10"
+            :rules="userRules"
             label="user name"
             required
           ></v-text-field>
@@ -25,7 +25,7 @@
     </v-container>
   </v-form>
   <div class="my-2 text-center">
-    <v-btn small color="primary" @click="sendCreateUser()">sign up for mokumoku</v-btn>
+    <v-btn small :disabled="!valid" color="primary" @click="sendCreateUser()">sign up for mokumoku</v-btn>
   </div>
   </div>
 </template>
@@ -46,11 +46,14 @@ export default {
       password: '',
       passwordRules: [
         v => !!v,
-        v => v.length > 8
+        v => v.length > 4
       ],
       emailRules: [
         v => !!v,
         v => /.+@.+/.test(v)
+      ],
+      userRules: [
+        v => !!v
       ]
     }
   },
@@ -64,8 +67,12 @@ export default {
       user.email = this.email
       user.name = this.name
       user.password = this.password
+      const self = this
+      const sendEmail = this.email
       this.createUser(user).then(function (output) {
         console.log('output', output)
+        console.log('self', self, sendEmail)
+        self.$emit('success', sendEmail)
       })
     }
   },

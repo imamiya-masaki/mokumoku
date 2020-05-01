@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     currentUser: {},
+    currentUserId: '',
     status: false
   },
   getters: {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     onUserStatusChanged (state, status) {
       state.status = status
+    },
+    onUserStatusUid (state, uid) {
+      state.uid = uid
     }
   },
   actions: {
@@ -37,7 +41,7 @@ export default new Vuex.Store({
         info.photoURL = userInfo.photoURL
       }
       console.log('auth', userInfo)
-      auth.createUserWithEmailAndPassword(info.email, info.password)
+      return auth.createUserWithEmailAndPassword(info.email, info.password)
         .then(function (userRecord) {
           console.log('Succsess', userRecord)
           // メール確認を送る
@@ -46,6 +50,35 @@ export default new Vuex.Store({
         })
         .catch(function (error) {
           console.log('err', error)
+          return 'err'
+        })
+    },
+    async createConfirmCreateUser ({ commit }, userInfo) {
+      const auth = firebase.auth()
+    },
+    async signInUser ({ commit }, userInfo) {
+      const auth = firebase.auth()
+      const email = userInfo.email
+      const password = userInfo.password
+      console.log('check', email, password)
+      return auth.signInWithEmailAndPassword(email, password)
+        .then(function (userRecord) {
+          console.log('success', userRecord.user)
+          // frontよりな表示changeしたいのでここではフラグだけ返す
+          const user = userRecord.user
+          if (!user.emailVerified) {
+            firebase.auth().signOut()
+            console.log('inValidEmail', user)
+            return 'inValidEmail'
+          } else {
+            // 確認メール通ってる
+            console.log('user', user)
+            commit('onUserStatusUid', user.uid)
+            return 'validEmail'
+          }
+        })
+        .catch(function (err) {
+          console.log('err', err)
           return 'err'
         })
     }

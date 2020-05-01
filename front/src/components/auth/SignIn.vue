@@ -4,6 +4,7 @@
     lazy-validation
     class="mx-auto">
     <v-container>
+          <p v-if="emailStatus === 'inConfirm'">emailの確認ができていません</p>
           <v-text-field
             v-model="email"
             :rules="emailRules"
@@ -19,12 +20,13 @@
     </v-container>
   </v-form>
   <div class="my-2 text-center">
-    <v-btn small color="primary" @click="sendCreateUser()">sign up for mokumoku</v-btn>
+    <v-btn small :disabled="!valid" color="primary" @click="sendInUser()">sign in for mokumoku</v-btn>
   </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'SignIn',
   props: {
@@ -33,12 +35,12 @@ export default {
   data () {
     return {
       valid: false,
-      name: '',
       email: '',
       password: '',
+      emailStatus: '',
       passwordRules: [
         v => !!v,
-        v => v.length > 8
+        v => v.length > 4
       ],
       emailRules: [
         v => !!v,
@@ -47,6 +49,16 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      // action
+      'signInUser'
+    ]),
+    sendInUser: function () {
+      console.log('this', this.email, this.password)
+      this.signInUser({ email: this.email, password: this.password }).then(function (output) {
+        console.log('output', output)
+      })
+    }
   }
 }
 </script>
