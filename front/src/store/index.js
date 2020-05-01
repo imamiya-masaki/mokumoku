@@ -43,9 +43,8 @@ export default new Vuex.Store({
       console.log('auth', userInfo)
       return auth.createUserWithEmailAndPassword(info.email, info.password)
         .then(function (userRecord) {
-          console.log('Succsess', userRecord)
+          console.log('Succsess', userRecord, userRecord.user)
           // メール確認を送る
-          userRecord.user.sendEmailVerification()
           return 'success'
         })
         .catch(function (error) {
@@ -81,6 +80,15 @@ export default new Vuex.Store({
           console.log('err', err)
           return 'err'
         })
+    },
+    async sendSecurityMail ({ commit }, info) {
+      const sendMail = firebase.functions().httpsCallable('sendMail')
+      const self = this
+      const destination = info.destination
+      const security = info.security
+      return sendMail({ destination: destination, securityCode: security }).then(function (res) {
+        return 'sendEmail'
+      })
     }
   },
   modules: {

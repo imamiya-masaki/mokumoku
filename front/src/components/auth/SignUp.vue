@@ -25,7 +25,7 @@
     </v-container>
   </v-form>
   <div class="my-2 text-center">
-    <v-btn small :disabled="!valid" color="primary" @click="sendCreateUser()">sign up for mokumoku</v-btn>
+    <v-btn small :disabled="!valid" color="primary" @click="sendConfirmEmail()">sign up for mokumoku</v-btn>
   </div>
   </div>
 </template>
@@ -60,7 +60,8 @@ export default {
   methods: {
     ...mapActions([
       // action
-      'createUser'
+      'createUser',
+      'sendSecurityMail'
     ]),
     sendCreateUser: function () {
       let user = {}
@@ -73,6 +74,13 @@ export default {
         console.log('output', output)
         console.log('self', self, sendEmail)
         self.$emit('success', sendEmail)
+      })
+    },
+    sendConfirmEmail: function () {
+      const destination = 'imachan567@gmail.com'
+      const securityCode = '3452'
+      this.sendSecurityMail({ destination: destination, securityCode: securityCode }).then(function (output) {
+        console.log('output')
       })
     }
   },

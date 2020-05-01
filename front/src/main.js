@@ -8,14 +8,14 @@ import firebase from 'firebase'
 import colors from 'vuetify/lib/util/colors'
 Vue.config.productionTip = false
 const firebaseConfig = {
-  apiKey: 'AIzaSyBe_BBIDtz_htiDDEpIEQuae_TrB5uLsKk',
-  authDomain: 'mokumoku-on-8c151.firebaseapp.com',
-  databaseURL: 'https://mokumoku-on-8c151.firebaseio.com',
-  projectId: 'mokumoku-on-8c151',
-  storageBucket: 'mokumoku-on-8c151.appspot.com',
-  messagingSenderId: '640555037509',
-  appId: '1:640555037509:web:fbfe7fbc72da734160c42c',
-  measurementId: 'G-7JWVN9MLZY'
+  apiKey: 'AIzaSyDdfqX2-zuKVpLo62cJ6Xi02Ac_UUkTWUI',
+  authDomain: 'mokumoku-on.firebaseapp.com',
+  databaseURL: 'https://mokumoku-on.firebaseio.com',
+  projectId: 'mokumoku-on',
+  storageBucket: 'mokumoku-on.appspot.com',
+  messagingSenderId: '698367459658',
+  appId: '1:698367459658:web:90094f9b9679a1af5201b3',
+  measurementId: 'G-V5CWT8WMT8'
 }
 firebase.initializeApp(firebaseConfig)
 firebase.analytics()
