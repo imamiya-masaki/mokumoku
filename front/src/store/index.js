@@ -84,9 +84,9 @@ export default new Vuex.Store({
     async sendSecurityMail ({ commit }, info) {
       const sendMail = firebase.functions().httpsCallable('sendMail')
       const self = this
-      const destination = info.destination
-      const security = info.security
-      return sendMail({ destination: destination, securityCode: security }).then(function (res) {
+      const destination = info.targetEmail
+      const security = info.code
+      return sendMail({ targetEmail: destination, code: security }).then(function (res) {
         return 'sendEmail'
       })
     }

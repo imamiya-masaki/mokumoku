@@ -13,9 +13,9 @@ const mailTransport = nodemailer.createTransport({
 exports.sendMail = functions.https.onCall((data, context) => {
     let email = {
         from: gmailEmail,
-        to: 'imachan567@gmail.com',
-        subject: 'test message',
-        text: 'This is a test message from vue.'
+        to: data.targetEmail,
+        subject: '【MokuMoku】確認コードをご確認ください。',
+        text: 'セキュリティコードは"'+data.code+'"です'
     }
     mailTransport.sendMail(email, (err, info) => {
         if (err) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="SignComponents" v-if="!confirmComponent">
+  <div class="SignComponents">
     <v-card
     class="center"
     max-width="350">
@@ -26,17 +26,6 @@
         </v-card-text>
       </v-tab-item>
     </v-tabs-items>
-    </v-card>
-  </div>
-  <div v-else>
-    <v-card
-    class="center"
-    max-width="500"
-    height="200">
-    <span class="">
-      {{ this.confirmEmail }} にメールをお送り致しました。
-      確認後、ログインできます！
-    </span>
     </v-card>
   </div>
 </template>
@@ -73,6 +62,9 @@ export default {
       console.log('email', email, this.confirmComponent)
       this.confirmEmail = email
       this.confirmComponent = true
+    },
+    loginOrSignInAccount: function () {
+      // ログインかアカウントcreateが出来たらここに返してもらう？
     }
   }
 }
