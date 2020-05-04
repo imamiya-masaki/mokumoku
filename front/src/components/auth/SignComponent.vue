@@ -17,12 +17,12 @@
     <v-tabs-items v-model="tabMenu">
       <v-tab-item :key="'signIn'">
         <v-card-text>
-          <sign-in/>
+          <sign-in @success="loginOrSignInAccount"/>
         </v-card-text>
       </v-tab-item>
       <v-tab-item :key="'register'">
         <v-card-text>
-          <sign-up @success="changeConfirmMail"/>
+          <sign-up @success="loginOrSignInAccount"/>
         </v-card-text>
       </v-tab-item>
     </v-tabs-items>
@@ -33,6 +33,7 @@
 <script>
 import SignUp from '@/components/auth/SignUp'
 import SignIn from '@/components/auth/SignIn'
+import router from '@/router'
 export default {
   name: 'SignComponents',
   // signin/signupをcardで管理するほうがかっこいいのでここに作る
@@ -58,13 +59,9 @@ export default {
     changeRegister: function () {
       this.tabMenu = 'register'
     },
-    changeConfirmMail (email) {
-      console.log('email', email, this.confirmComponent)
-      this.confirmEmail = email
-      this.confirmComponent = true
-    },
     loginOrSignInAccount: function () {
       // ログインかアカウントcreateが出来たらここに返してもらう？
+      router.push({ path: '/' })
     }
   }
 }

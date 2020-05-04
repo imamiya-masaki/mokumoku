@@ -83,19 +83,6 @@ export default {
       'createUser',
       'sendSecurityMail'
     ]),
-    sendCreateUser: function () {
-      let user = {}
-      user.email = this.email
-      user.name = this.name
-      user.password = this.password
-      const self = this
-      const sendEmail = this.email
-      this.createUser(user).then(function (output) {
-        console.log('output', output)
-        console.log('self', self, sendEmail)
-        self.$emit('success', sendEmail)
-      })
-    },
     sendConfirmEmail: function () {
       const destination = this.email
       const securityCode = this.generateCode()

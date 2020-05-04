@@ -65,16 +65,8 @@ export default new Vuex.Store({
           console.log('success', userRecord.user)
           // frontよりな表示changeしたいのでここではフラグだけ返す
           const user = userRecord.user
-          if (!user.emailVerified) {
-            firebase.auth().signOut()
-            console.log('inValidEmail', user)
-            return 'inValidEmail'
-          } else {
-            // 確認メール通ってる
-            console.log('user', user)
-            commit('onUserStatusUid', user.uid)
-            return 'validEmail'
-          }
+          commit('onUserStatusUid', user.uid)
+          return user
         })
         .catch(function (err) {
           console.log('err', err)

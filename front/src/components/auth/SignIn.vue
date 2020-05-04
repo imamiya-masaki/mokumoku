@@ -55,8 +55,10 @@ export default {
     ]),
     sendInUser: function () {
       console.log('this', this.email, this.password)
+      const self = this
       this.signInUser({ email: this.email, password: this.password }).then(function (output) {
         console.log('output', output)
+        self.$emit('success', self.email)
       })
     }
   }
