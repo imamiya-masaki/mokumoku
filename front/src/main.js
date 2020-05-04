@@ -19,6 +19,15 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 firebase.analytics()
+firebase.auth().onAuthStateChanged(function (user) {
+  // いずれこういう変数はどこかのファイルで定義して置いておきたい。
+  if (user) {
+    console.log('checkuser', user)
+    store.commit('onUserStatusUid', user.uid)
+    store.commit('onLoginUser', user)
+  }
+})
+console.log('checkstate', store)
 new Vue({
   router,
   store,

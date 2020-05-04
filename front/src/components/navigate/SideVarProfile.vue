@@ -1,7 +1,7 @@
 <template>
   <div class="SideVarProfile" v-if="userStatus">
-    <p>{{ user.name }}</p>
-    <p>Sign out</p>
+    <p>{{ user.email }}</p>
+    <div @click="onLogout()">Sign out</div>
   </div>
   <div v-else>
     <router-link to="/auth">
@@ -12,6 +12,7 @@
 
 <script>
 // import Firebase from '@/firebase'
+import { mapActions } from 'vuex'
 export default {
   name: 'SideVarProfile',
   components: {
@@ -20,17 +21,23 @@ export default {
     return {
     }
   },
-  mounted: function () {
-  },
   computed: {
     user () {
-      return this.$store.getters.user
+      return this.$store.getters.getUser
     },
     userStatus () {
+      console.log('user', this.$store.getters.getUser)
       return this.$store.getters.isSignedIn
     }
   },
-  method: {
+  methods: {
+    ...mapActions([
+      // action
+      'logOutUser'
+    ]),
+    onLogout: function () {
+      return this.logOutUser()
+    }
   }
 }
 </script>

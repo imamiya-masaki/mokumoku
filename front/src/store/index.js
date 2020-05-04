@@ -8,14 +8,18 @@ export default new Vuex.Store({
   state: {
     currentUser: {},
     currentUserId: '',
-    status: false
+    status: false,
+    logined: false
   },
   getters: {
     email (state) {
       return state.email
     },
     isSignedIn (state) {
-      return state.status
+      return state.logined
+    },
+    getUser (state) {
+      return state.currentUser
     }
   },
   mutations: {
@@ -27,6 +31,14 @@ export default new Vuex.Store({
     },
     onUserStatusUid (state, uid) {
       state.uid = uid
+    },
+    onLoginUser (state, user) {
+      state.logined = true
+      state.currentUser = user
+    },
+    onLogOutUser (state) {
+      state.logined = false
+      state.currentUser = {}
     }
   },
   actions: {
@@ -66,12 +78,24 @@ export default new Vuex.Store({
           // frontよりな表示changeしたいのでここではフラグだけ返す
           const user = userRecord.user
           commit('onUserStatusUid', user.uid)
-          return user
+          commit('onLoginUser', user)
+          return firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+            .then(function () {
+            })
+            .catch(function (error) {
+              // Handle Errors here.
+              var errorCode = error.code
+              var errorMessage = error.message
+            })
         })
         .catch(function (err) {
           console.log('err', err)
           return 'err'
         })
+    },
+    async logOutUser ({ commit }) {
+      commit('onLogOutUser')
+      firebase.auth().signOut()
     },
     async sendSecurityMail ({ commit }, info) {
       const sendMail = firebase.functions().httpsCallable('sendMail')
@@ -80,6 +104,18 @@ export default new Vuex.Store({
       const security = info.code
       return sendMail({ targetEmail: destination, code: security }).then(function (res) {
         return 'sendEmail'
+      })
+    },
+    async stateLogin ({ commit }) {
+      // すでにログインされている場合 ログインされる
+      let currentUser = null
+      firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+          console.log('checkuser', user)
+          currentUser = user
+          commit('onUserStatusUid', currentUser.uid)
+          commit('onLoginUser', currentUser)
+        }
       })
     }
   },
